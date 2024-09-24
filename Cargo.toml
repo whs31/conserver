@@ -1,0 +1,36 @@
+[package]
+name = "conserver"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+# [lib]
+# doctest = false
+
+[features]
+default = []
+telegram = ["dep:teloxide"]
+
+[dependencies.tokio]
+version = "1.40.0"
+features = ["macros", "rt-multi-thread", "sync", "time"]
+
+[dependencies.clap]
+version = "4.5.18"
+features = ["color", "derive"]
+
+[dependencies.serde]
+version = "1.0.210"
+features = ["derive"]
+
+[dependencies]
+log = "0.4.22"
+anyhow = "1.0.89"
+semver = "1.0.23"
+nestify = "0.3.3"
+tap = "1.0.1"
+toml = "0.8.19"
+teloxide = { version = "0.13.0", optional = true }
+
+[build-dependencies]
+build-data = "0.2.1"
