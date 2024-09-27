@@ -3,6 +3,7 @@ pub(crate) mod cli;
 pub(crate) mod core;
 pub(crate) mod error;
 pub(crate) mod net;
+pub(crate) mod pack;
 
 use cli::colors::*;
 

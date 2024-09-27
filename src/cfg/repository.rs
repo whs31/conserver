@@ -37,12 +37,10 @@ impl Display for Branch {
 }
 
 impl Repository {
-  pub async fn clone_from_git<S, T>(&self, source: S, target: T) -> Result<&Self> where 
-    S: Into<String>, 
+  pub async fn clone_from_git<T>(&self, target: T) -> Result<&Self> where 
     T: Into<PathBuf> {
-    let source: String = source.into();
+    let source: String = self.url.to_string();
     let target: PathBuf = target.into();
-    let bare = false;
     let branch = self.branch.clone();
 
     tokio::task::spawn_blocking(move || -> Result<()> {
@@ -101,12 +99,12 @@ mod tests {
   #[tokio::test]
   async fn test_clone_from_git() -> crate::error::Result<()> {
     let repo = Repository {
-      url: Url::parse("https://github.com/whs31/conserver")?,
+      url: Url::parse("https://github.com/octocat/Hello-World")?,
       branch: Branch::All,
       recurse_submodules: false
     };
 
-    let _ = repo.clone_from_git("https://github.com/whs31/conserver", "target/tests/test-clone").await?;
+    let _ = repo.clone_from_git("target/tests/test-clone").await?;
     
     std::fs::remove_dir_all("target/tests/test-clone")?;
 
